@@ -119,8 +119,8 @@ defmodule BorsNG.GitHub.Server do
     |> case do
       %{body: _, status_code: 200} ->
         {:ok, sha}
-      _ ->
-        {:error, :push}
+      %{body: raw} ->
+        {:error, {:push, Poison.decode!(raw)}}
     end
   end
 
